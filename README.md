@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+This is a project to recreate the dice game "Tenzies", built as part of a React course on Scrimba.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The goal of the game is to roll the dice until you've gotten the same number on every die. On the first round you roll at 10 dice and then set aside all the dice of the same number, choosing whichever number you rolled the most of. 
 
-## Available Scripts
+For example, you roll [6, 2, 1, 2, 4, 2, 5, 6, 2, 5]. In this case the number you got the most of is 2, so you set aside all of the dice showing 2. Now you have six dice left which you roll again, setting aside any dice that land on 2. You repeat this until you run out of dice to roll, at which point you've "won" the game. If you're playing to win, the least amount of total rolls is the winner.
 
-In the project directory, you can run:
+An example of a full game using the original example could look like this:
 
-### `npm start`
+(I used 10 real dice to create this example)
+[6, 2, 1, 2, 4, 2, 5, 6, 2, 5]
+[6, 5, 2, 4, 4, 6]
+[5, 1, 4, 3, 5]
+[4, 3, 4, 3, 2]
+[3, 1, 5, 6]
+[5, 2, 1, 2]
+[4, 3]
+[6, 3]
+[6, 4]
+[4, 6]
+[3, 2]
+[3]
+[6]
+[2]
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+So it took 14 rolls to win, meaning the ending score was 14.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Fun fact about the probabilities of this game: the chance of all 10 dice landing on the same number on the first roll is 1/(6^9) or 0.0000099229%. 
+You're about 700 times more likely to be struck by lightning than you are winning Tenzies with a score of 1. Good luck!
