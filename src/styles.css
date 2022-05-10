@@ -80,6 +80,20 @@ main {
   box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
 }
 
-#held{
+#held {
   background-color: #59E391;
+}
+
+.score {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.rolls, .time {
+  font-size: 20px;
+}
+
+.rolls {
+  margin-right: 50px;
 }

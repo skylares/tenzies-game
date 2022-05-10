@@ -10,6 +10,9 @@ export default function App() {
   // state that represents if the game is over or ongoing 
   const [tenzies, setTenzies] = React.useState(false);
 
+  //state to hold number of rolls in each game
+  const [rolls, setRolls] = React.useState(1);
+
   // effect to check if game is won
   React.useEffect(() => {
     const dieValue = dice[0].value
@@ -17,9 +20,6 @@ export default function App() {
       setTenzies(true);
     }
   }, [dice]);
-
-  const start = Date.now();
-  React.useEffect(() => {console.log(start)}, [dice]);
 
   // generates a single random die object with a unique id
   function generateRandomDie() {
@@ -44,6 +44,7 @@ export default function App() {
     setDice(prevDice => prevDice.map(die => {
       return die.isHeld ? die : generateRandomDie();
     }));
+    setRolls(prevRolls => prevRolls + 1);
   }
 
   // flips the isHeld property on the selected die
@@ -57,6 +58,7 @@ export default function App() {
   function newGame() {
     setTenzies(false);
     setDice(randomDice);
+    setRolls(1);
   }
 
   // generates the 10 die elements to display 
@@ -68,6 +70,7 @@ export default function App() {
       holdDice={() => holdDice(die.id)}
     />
   ));
+  console.log(rolls);
 
   return (
     <main>
@@ -81,6 +84,10 @@ export default function App() {
         className="reroll-button"
       >{tenzies ? "New Game" : "Roll"}
       </button>
+      <div className="score">
+        <h2 className="rolls">{`rolls: ${rolls}`}</h2>
+        <h2 className="time">time:</h2>
+      </div>
     </main>
   );
 }
