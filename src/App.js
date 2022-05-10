@@ -1,33 +1,73 @@
 import React from "react";
 import Die from "./Die";
+import { nanoid } from "nanoid";
 
 export default function App() {
 
+  // state to hold dice and their properties
   const [dice, setDice] = React.useState(randomDice());
-  console.log(dice)
 
+  // state that represents if the game is over or ongoing 
+  const [tenzies, setTenzies] = React.useState(false);
+
+  // effect to check if game is won
+  React.useEffect(() => {
+    const dieValue = dice[0].value
+    if (dice.every(die => die.isHeld && dieValue === die.value)) {
+      setTenzies(true);
+    }
+  }, [dice]);
+
+  const start = Date.now();
+  React.useEffect(() => {console.log(start)}, [dice]);
+
+  // generates a single random die object with a unique id
+  function generateRandomDie() {
+    return {
+      value: Math.ceil(Math.random() * 6),
+      isHeld: false,
+      id: nanoid(),
+    }
+  }
+  
+  // generates an array which contains 10 dice objects
   function randomDice() {
     const diceArray = [];
     for (let i=0; i<10; i++) {
-      diceArray.push({
-        value: Math.ceil(Math.random() * 6),
-        isHeld: false,
-        key: Math.random(),
-      });
+      diceArray.push(generateRandomDie());
     }
     return diceArray;
   }
 
-  const diceElements = dice.map(die => (
-    <Die
-      key={die.key} 
-      value={die.value} 
-    />
-  ));
-
+  // generates new dice except for those with a truthy value for isHeld
   function rerollDice() {
+    setDice(prevDice => prevDice.map(die => {
+      return die.isHeld ? die : generateRandomDie();
+    }));
+  }
+
+  // flips the isHeld property on the selected die
+  function holdDice(id) {
+    setDice(prevDice => prevDice.map(die => (
+      die.id === id ? {...die, isHeld: !die.isHeld} : die
+    )));
+  }
+
+  // restarts the game after finishing
+  function newGame() {
+    setTenzies(false);
     setDice(randomDice);
   }
+
+  // generates the 10 die elements to display 
+  const diceElements = dice.map(die => (
+    <Die
+      key={die.id} 
+      value={die.value} 
+      isHeld={die.isHeld}
+      holdDice={() => holdDice(die.id)}
+    />
+  ));
 
   return (
     <main>
@@ -37,9 +77,10 @@ export default function App() {
         {diceElements}
       </div>
       <button 
-        onClick={rerollDice}
+        onClick={tenzies ? newGame : rerollDice}
         className="reroll-button"
-      >Roll</button>
+      >{tenzies ? "New Game" : "Roll"}
+      </button>
     </main>
   );
 }
