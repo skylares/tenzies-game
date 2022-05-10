@@ -56,6 +56,7 @@ main {
   color: #2B283A;
   font-size: 26px;
   margin-bottom: 8px;
+  margin-top: -30px;
 }
 
 .description {
@@ -84,16 +85,15 @@ main {
   background-color: #59E391;
 }
 
-.score {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
 .rolls, .time {
   font-size: 20px;
+  position: absolute;
 }
 
 .rolls {
-  margin-right: 50px;
+  left: 150px;
+}
+
+.time {
+  left: 300px;
 }

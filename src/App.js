@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Die from "./Die";
 import { nanoid } from "nanoid";
 
@@ -13,11 +13,26 @@ export default function App() {
   //state to hold number of rolls in each game
   const [rolls, setRolls] = React.useState(1);
 
+  const [startTime, setStartTime] = React.useState(Date.now());
+  const [currentTime, setCurrentTime] = React.useState(startTime);
+  const [finalTime, setFinalTime] = React.useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => setCurrentTime(Date.now()), 100);
+    return () => clearInterval(interval);
+  }, []);
+
+  function getElapsedTime() {
+    let secondsElapsed = (currentTime - startTime) / 1000;
+    return (Math.round(secondsElapsed * 10) / 10).toFixed(1);
+  }
+
   // effect to check if game is won
   React.useEffect(() => {
-    const dieValue = dice[0].value
+    const dieValue = dice[0].value;
     if (dice.every(die => die.isHeld && dieValue === die.value)) {
       setTenzies(true);
+      setFinalTime(getElapsedTime());
     }
   }, [dice]);
 
@@ -59,6 +74,8 @@ export default function App() {
     setTenzies(false);
     setDice(randomDice);
     setRolls(1);
+    setStartTime(Date.now());
+    setFinalTime(0);
   }
 
   // generates the 10 die elements to display 
@@ -70,7 +87,6 @@ export default function App() {
       holdDice={() => holdDice(die.id)}
     />
   ));
-  console.log(rolls);
 
   return (
     <main>
@@ -86,7 +102,7 @@ export default function App() {
       </button>
       <div className="score">
         <h2 className="rolls">{`rolls: ${rolls}`}</h2>
-        <h2 className="time">time:</h2>
+        <h2 className="time">time: {tenzies ? finalTime : getElapsedTime()}</h2>
       </div>
     </main>
   );
