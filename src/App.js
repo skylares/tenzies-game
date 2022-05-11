@@ -10,9 +10,10 @@ export default function App() {
   // state that represents if the game is over or ongoing 
   const [tenzies, setTenzies] = React.useState(false);
 
-  //state to hold number of rolls in each game
+  // state to hold number of rolls in each game
   const [rolls, setRolls] = React.useState(1);
 
+  // states to track game time
   const [startTime, setStartTime] = React.useState(Date.now());
   const [currentTime, setCurrentTime] = React.useState(startTime);
   const [finalTime, setFinalTime] = React.useState(0);
@@ -91,7 +92,7 @@ export default function App() {
   return (
     <main>
       <h1 className="title">Tenzies</h1>
-      <p className="description">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
+      <p className="description">Roll until all dice are the same. Click a die to freeze it at its current value.</p>
       <div className="die-container">
         {diceElements}
       </div>

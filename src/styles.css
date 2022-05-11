@@ -9,7 +9,7 @@ body {
   font-family: 'Karla', sans-serif;
 }
 
-h1, p {
+h1, h2, p {
   margin: 0;
   padding: 0;
 }
@@ -25,8 +25,6 @@ main {
   text-align: center;
   align-items: center;
   justify-content: center;
-  /* this might work better:
-  justify-content: space-around; */
 }
 
 .die-container {
@@ -34,22 +32,6 @@ main {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 20px;
   margin: 25px 0;
-}
-
-.die {
-  width: 50px;
-  height: 50px;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
-  text-align: center;
-}
-
-.die-value {
-  margin: 0;
-  padding: 13px 10px;
-  color: #2B283A;
-  font-weight: 700;
-  font-size: 21px;
 }
 
 .title {
@@ -85,15 +67,69 @@ main {
   background-color: #59E391;
 }
 
+.score {
+  position: relative;
+  min-width: 350px;
+}
+
 .rolls, .time {
   font-size: 20px;
   position: absolute;
+  top: 15px;
 }
 
 .rolls {
-  left: 150px;
+  left: 65px;
 }
 
 .time {
-  left: 300px;
+  left: 215px;
+  min-width: 100px;
+}
+
+.die {
+  width: 50px;
+  height: 50px;
+  border: 1px solid;
+  box-shadow: 2px 2px 2px #0B2434;
+  border-radius: 4px;
+  text-align: center;
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  grid-template-areas: 
+    "a . c"
+    "e g f"
+    "d . b";
+}
+
+.die-value {
+  background-color: #0B2434;
+  border-radius: 20px;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+}
+
+.die-value:nth-child(2) {
+  grid-area: b;
+}
+
+.die-value:nth-child(3) {
+  grid-area: c;
+}
+
+.die-value:nth-child(4) {
+  grid-area: d;
+}
+
+.die-value:nth-child(5) {
+  grid-area: e;
+}
+
+.die-value:nth-child(6) {
+  grid-area: f;
+}
+
+.die-value:nth-child(odd):last-child {
+  grid-area: g;
 }
