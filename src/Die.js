@@ -22,7 +22,8 @@ export default function Die(props) {
       id={props.isHeld ? "held" : null}
       onClick={props.holdDice}
     >
-      {dieFace(props.value)}
+      {props.gameStart ? dieFace(props.value) : dieFace(1)}
     </div>
   );
 }
+

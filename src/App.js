@@ -1,8 +1,14 @@
 import React, { useEffect } from "react";
 import Die from "./Die";
 import { nanoid } from "nanoid";
+import Leaderboard from "./Leaderboard";
 
 export default function App() {
+
+  const [showScore, setShowScore] = React.useState(false);
+
+  // state to determine if the start screen or the game is displayed
+  const [gameStart, setGameStart] = React.useState(false);
 
   // state to hold dice and their properties
   const [dice, setDice] = React.useState(randomDice());
@@ -11,7 +17,7 @@ export default function App() {
   const [tenzies, setTenzies] = React.useState(false);
 
   // state to hold number of rolls in each game
-  const [rolls, setRolls] = React.useState(1);
+  const [rolls, setRolls] = React.useState(0);
 
   // states to track game time
   const [startTime, setStartTime] = React.useState(Date.now());
@@ -77,6 +83,8 @@ export default function App() {
     setRolls(1);
     setStartTime(Date.now());
     setFinalTime(0);
+
+    setGameStart(true);
   }
 
   // generates the 10 die elements to display 
@@ -86,25 +94,137 @@ export default function App() {
       value={die.value} 
       isHeld={die.isHeld}
       holdDice={() => holdDice(die.id)}
+      gameStart={gameStart}
     />
   ));
 
-  return (
-    <main>
-      <h1 className="title">Tenzies</h1>
-      <p className="description">Roll until all dice are the same. Click a die to freeze it at its current value.</p>
-      <div className="die-container">
-        {diceElements}
-      </div>
-      <button 
-        onClick={tenzies ? newGame : rerollDice}
-        className="reroll-button"
-      >{tenzies ? "New Game" : "Roll"}
-      </button>
-      <div className="score">
-        <h2 className="rolls">{`rolls: ${rolls}`}</h2>
-        <h2 className="time">time: {tenzies ? finalTime : getElapsedTime()}</h2>
-      </div>
-    </main>
-  );
+  if (gameStart) {
+
+    return (
+
+      <main>
+        <h1 className="title">Tenzies</h1>
+        <p className="description">Roll until all dice are the same. Click a die to freeze it at its current value.</p>
+        <div className="die-container">
+          {diceElements}
+        </div>
+        <button 
+          onClick={tenzies ? newGame : rerollDice}
+          className="reroll-button"
+        >{tenzies ? "New Game" : "Roll"}
+        </button>
+        <div className="score">
+          <h2 className="rolls">{`rolls: ${rolls}`}</h2>
+          <h2 className="time">time: {tenzies ? finalTime : getElapsedTime()}</h2>
+        </div>
+      </main>
+    );
+  }
+
+  else {
+
+    return (
+
+      <main>
+        <h1 className="title">Tenzies</h1>
+        <p className="description">Roll until all dice are the same. Click a die to freeze it at its current value.</p>
+        <div className="die-container">
+          {diceElements}
+        </div>
+        <button 
+          onClick={newGame}
+          className="reroll-button"
+        >Start Game
+        </button>
+        <div className="score">
+          <h2 className="rolls">{`rolls: ${rolls}`}</h2>
+          <h2 className="time">time: {finalTime}</h2>
+        </div>
+      </main>
+    );
+  }
+
+
 }
+
+
+  // return (
+
+  //   <main>
+  //     <h1 className="title">Tenzies</h1>
+  //     <p className="description">Roll until all dice are the same. Click a die to freeze it at its current value.</p>
+  //     <div className="die-container">
+  //       {diceElements}
+  //     </div>
+  //     <button 
+  //       onClick={tenzies ? newGame : rerollDice}
+  //       className="reroll-button"
+  //     >{tenzies ? "New Game" : "Roll"}
+  //     </button>
+  //     <div className="score">
+  //       <h2 className="rolls">{`rolls: ${rolls}`}</h2>
+  //       <h2 className="time">time: {tenzies ? finalTime : getElapsedTime()}</h2>
+  //     </div>
+  //   </main>
+  // );
+
+
+  //   return (
+
+  //   <main>
+  //     <h1 className="title">Tenzies</h1>
+  //     <p className="description">Roll until all dice are the same. Click a die to freeze it at its current value.</p>
+  //     <div className="die-container">
+  //       {diceElements}
+  //     </div>
+  //     { 
+  //       Tenzies ?
+  //         <div className="buttons">
+  //           <button 
+  //             onClick={newGame}
+  //             className="reroll-button"
+  //             >New Game
+  //           </button>
+  //           <button onClick={}>Leaderboard</button>
+  //         </div>
+  //       :
+  //         <button 
+  //           onClick={rerollDice}
+  //           className="reroll-button"
+  //           >Roll
+  //         </button>
+  //     }
+  //     <div className="score">
+  //       <h2 className="rolls">{`rolls: ${rolls}`}</h2>
+  //       <h2 className="time">time: {tenzies ? finalTime : getElapsedTime()}</h2>
+  //     </div>
+  //   </main>
+  // );
+
+
+
+
+
+
+  // if (gameStart) {
+
+  //   return (
+
+  //     <main>
+  //       <h1 className="title">Tenzies</h1>
+  //       <p className="description">Roll until all dice are the same. Click a die to freeze it at its current value.</p>
+  //       <div className="die-container">
+  //         {diceElements}
+  //       </div>
+  //       <button 
+  //         onClick={tenzies ? newGame : rerollDice}
+  //         className="reroll-button"
+  //       >{tenzies ? "New Game" : "Roll"}
+  //       </button>
+  //       <div className="score">
+  //         <h2 className="rolls">{`rolls: ${rolls}`}</h2>
+  //         <h2 className="time">time: {tenzies ? finalTime : getElapsedTime()}</h2>
+  //       </div>
+  //     </main>
+  //   );
+  // }
